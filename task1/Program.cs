@@ -105,7 +105,7 @@ namespace GraphOpenStreetMap
 
         static void WriteCsv()
         {
-            string pathСsvFile;
+            string pathСsvFile= "";
             Console.WriteLine("Введите желаемый путь для csv файла списка смежности полученного графа(без расширения):");
             pathСsvFile = Console.ReadLine();
             System.IO.StreamWriter textFile = new System.IO.StreamWriter(pathСsvFile+".csv");
@@ -135,7 +135,7 @@ namespace GraphOpenStreetMap
 
         public static double lonToX(double lon)
         {
-            return R_MAJOR * DegToRad(lon)*0.1;
+            return R_MAJOR * DegToRad(lon)*0.05;
         }
 
         public static double latToY(double lat)
@@ -146,13 +146,13 @@ namespace GraphOpenStreetMap
             double con = ECCENT * sinphi;
             con = Math.Pow(((1.0 - con) / (1.0 + con)), COM);
             double ts = Math.Tan(0.5 * ((Math.PI * 0.5) - phi)) / con;
-            return 0 - R_MAJOR * Math.Log(ts)*0.1;
+            return 0 - R_MAJOR * Math.Log(ts)*0.05;
         }
 
 
         static void WriteSvg()
         {
-            string pathСsvFile;
+            string pathСsvFile= "";
             Console.WriteLine("Введите желаемый путь для svg файла полученного графа(без расширения):");
             pathСsvFile = Console.ReadLine();
             System.IO.StreamWriter textFile = new System.IO.StreamWriter(pathСsvFile + ".svg");
@@ -164,7 +164,7 @@ namespace GraphOpenStreetMap
                 {
                     string LineToSvg = "<line ";
                     LineToSvg +="x1=\""+ System.Convert.ToString(lonToX(Nodes[i].lon)-lonToX(minlon)).Replace(",",".")+"\" x2=\""+ System.Convert.ToString(lonToX(Nodes[AddjestedList[i][j]].lon)-lonToX(minlon)).Replace(",", ".") + "\" y1=\"" + System.Convert.ToString(-latToY(Nodes[i].lat)+latToY(maxlat)).Replace(",", ".") + "\" y2=\""+ System.Convert.ToString(-latToY(Nodes[AddjestedList[i][j]].lat)+latToY(maxlat)).Replace(",", ".") + "\" ";
-                    LineToSvg += "stroke = \"blue\" stroke-width= \"1\" />";
+                    LineToSvg += "stroke = \"black\" stroke-width= \"1\" />";
                     int k = 0;
                     textFile.WriteLine(LineToSvg);
                 }
@@ -178,7 +178,7 @@ namespace GraphOpenStreetMap
         static void Main(string[] args)
         {
            
-            string pathOsmFile;
+            string pathOsmFile= "";
             Console.WriteLine("Введите полный путь необходимого для обработки osm файла:");
             pathOsmFile=Console.ReadLine();
             ParseOsm(pathOsmFile);
